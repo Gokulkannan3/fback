@@ -2,7 +2,7 @@
     const mysql = require('mysql');
     const app = express();
     const cors =require('cors');
-    const bcrypt = require('bcrypt');
+    const bcryptjs = require('bcryptjs');
     const setRounds=10;
 
     app.use(express.json());
@@ -57,7 +57,7 @@
             return res.status(400).json({ error: 'Password and Confirm Password do not match' });
         }
 
-        bcrypt.hash(password,setRounds,(err,hash)=>{
+        bcryptjs.hash(password,setRounds,(err,hash)=>{
             if(err){
                 console.log(err)
             }
@@ -114,7 +114,7 @@
             return res.status(400).json({ error: 'Password and Confirm Password do not match' });
         }
 
-        bcrypt.hash(password,setRounds,(err,hash)=>{
+        bcryptjs.hash(password,setRounds,(err,hash)=>{
             if(err){
                 console.log(err)
             }
@@ -149,7 +149,7 @@
                 }
     
                 if (result.length > 0) {
-                    bcrypt.compare(password, result[0].password, (err, response) => {
+                    bcryptjs.compare(password, result[0].password, (err, response) => {
                         if (response) {
                             const userData = {
                                 username: result[0].username,
@@ -183,7 +183,7 @@
                 }
     
                 if (result.length > 0) {
-                    bcrypt.compare(password, result[0].password, (err, response) => {
+                    bcryptjs.compare(password, result[0].password, (err, response) => {
                         if (response) {
                             const userData = {
                                 name: result[0].name,
