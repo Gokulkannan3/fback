@@ -12,5 +12,6 @@
   "scripts" : {
     "test" : "echo",
     "start" : "npx nodemon index.js"
+    "build": "npm build",
   }
 }
