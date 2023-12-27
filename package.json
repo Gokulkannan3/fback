@@ -11,6 +11,6 @@
   },
   "scripts" : {
     "test" : "echo",
-    "start" : "nodemon index.js"
+    "start" : "npx nodemon index.js"
   }
 }
