@@ -157,10 +157,28 @@ app.use(
             } else {
               res.status(200).send('Order placed successfully!');
               console.log(result)
+              const orderId = result.id;
             }
           }
         );
       });
+
+    app.get('/track/:id', (req, res) => {
+        const orderId = req.params.id;
+
+        db.query(
+            'SELECT * FROM orders WHERE id = ?',
+            [orderId],
+            (err, result) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('Internal Server Error');
+            } else {
+                res.status(200).json(result[0]);
+            }
+            }
+        );
+    });
       
 
     app.post('/register', (req, res) => {
