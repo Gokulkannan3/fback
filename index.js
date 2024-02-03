@@ -277,6 +277,9 @@ app.use(
         })
     });
 
+    app.get('/gokul',(req,res)=>{
+        res.json("Gokul backend is running");
+    })
     app.get('/order' , (req,res) => {
         db.query("SELECT * FROM orders", 
         (err,result)=>{
