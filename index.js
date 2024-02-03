@@ -8,9 +8,10 @@ const session = require("express-session");
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const setRounds=10;
+require('dotenv').config();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin:'*'}));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -293,6 +294,6 @@ app.use(
     
 
 
-    app.listen(3002,()=>{
+    app.listen(3002||process.env.PORT,()=>{
         console.log('Server started');
     });
