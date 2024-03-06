@@ -1,14 +1,13 @@
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const app = express();
 const cors =require('cors');
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const session = require("express-session");
+const session = require("cookie-parser");
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const setRounds=10;
-require('dotenv').config();
 
 app.use(express.json());
 app.use(cors({origin:'*'}));
@@ -28,10 +27,11 @@ app.use(
 )
 
     const db = mysql.createConnection({
-        user:'root',
-        password:'Gokul@003',
-        host:'localhost',
-        database:'Innumvai'
+        user:'avnadmin',
+        password:'AVNS_5W135YZrjuwuLR-WHt5',
+        host:'mysql-39af648c-gokul.a.aivencloud.com',
+        database:'innumvai',
+        port:'11941'
     })
 
     const verifyJWT = (req, res, next) => {
@@ -297,6 +297,6 @@ app.use(
     
 
 
-    app.listen(3002||process.env.PORT,()=>{
+    app.listen(3002,()=>{
         console.log('Server started');
     });
