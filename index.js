@@ -180,6 +180,83 @@ app.use(
             }
         );
     });
+
+    app.get('/countcoffee', (req, res) => {
+        db.query(
+            'SELECT SUM(coffee) AS totalCoffee FROM orders',
+            (error, results) => {
+                if (error) {
+                    console.error('Error retrieving total coffee count:', error);
+                    res.status(500).json({ error: 'Internal server error' });
+                } else {
+                    const totalCoffee = results[0].totalCoffee || 0;
+                    console.log('Total coffee count:', totalCoffee);
+                    res.json({ totalCoffee });
+                }
+            }
+        );
+    });
+    app.get('/countpasta', (req, res) => {
+        db.query(
+            'SELECT SUM(pasta) AS totalPasta FROM orders',
+            (error, results) => {
+                if (error) {
+                    console.error('Error retrieving total pasta count:', error);
+                    res.status(500).json({ error: 'Internal server error' });
+                } else {
+                    const totalPasta = results[0].totalPasta || 0;
+                    console.log('Total pasta count:', totalPasta);
+                    res.json({ totalPasta });
+                }
+            }
+        );
+    });
+    app.get('/countrosemilk', (req, res) => {
+        db.query(
+            'SELECT SUM(rosemilk) AS totalRosemilk FROM orders',
+            (error, results) => {
+                if (error) {
+                    console.error('Error retrieving total rosemilk count:', error);
+                    res.status(500).json({ error: 'Internal server error' });
+                } else {
+                    const totalRosemilk = results[0].totalRosemilk || 0;
+                    console.log('Total rosemilk count:', totalRosemilk);
+                    res.json({ totalRosemilk });
+                }
+            }
+        );
+    });
+    app.get('/countbrownie', (req, res) => {
+        db.query(
+            'SELECT SUM(brownie) AS totalBrownie FROM orders',
+            (error, results) => {
+                if (error) {
+                    console.error('Error retrieving total brownie count:', error);
+                    res.status(500).json({ error: 'Internal server error' });
+                } else {
+                    const totalBrownie = results[0].totalBrownie || 0;
+                    console.log('Total brownie count:', totalBrownie);
+                    res.json({ totalBrownie });
+                }
+            }
+        );
+    });
+    app.get('/countcake', (req, res) => {
+        db.query(
+            'SELECT SUM(cake) AS totalCake FROM orders',
+            (error, results) => {
+                if (error) {
+                    console.error('Error retrieving total cake count:', error);
+                    res.status(500).json({ error: 'Internal server error' });
+                } else {
+                    const totalCake = results[0].totalCake || 0;
+                    console.log('Total cake count:', totalCake);
+                    res.json({ totalCake });
+                }
+            }
+        );
+    });
+    
       
 
     app.post('/register', (req, res) => {
