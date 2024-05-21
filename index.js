@@ -188,6 +188,7 @@ app.use(
                     res.status(200).send('Order placed successfully!');
                     console.log(result);
                     const orderId = result.insertId;
+                }
             }
         );
     });
