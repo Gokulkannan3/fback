@@ -154,7 +154,6 @@ app.use(
                     console.log(err);
                     res.status(500).send('Internal Server Error');
                 } else {
-                    // Collect product details into a formatted string
                     const productDetails = `
                         Coffee: ${coffee} cups
                         Pasta: ${pasta} plates
@@ -175,7 +174,7 @@ app.use(
                         from: 'gokul8506@gmail.com',
                         to: email,
                         subject: 'Order Confirmation',
-                        text: `Your order has been successfully placed!\n\nTotal amount: $${totalAmount}\n\nOrdered Items:\n${productDetails}`
+                        text: `Dear customer Thanks for your order with Innumvai😊\n\nYour order has been successfully placed!\n\nTotal amount: ₹${totalAmount}\n\nOrdered Items:\n${productDetails}`
                     };
     
                     transporter.sendMail(mailOptions, (error, info) => {
@@ -188,8 +187,7 @@ app.use(
     
                     res.status(200).send('Order placed successfully!');
                     console.log(result);
-                    const orderId = result.insertId;  // Get the inserted order ID
-                }
+                    const orderId = result.insertId;
             }
         );
     });
