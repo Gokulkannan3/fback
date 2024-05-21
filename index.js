@@ -8,6 +8,7 @@ const session = require("cookie-parser");
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const setRounds=10;
+const nodemailer = require('nodemailer');
 
 app.use(express.json());
 app.use(cors({origin:'*'}));
@@ -143,26 +144,57 @@ app.use(
     });
 
     app.post('/order', (req, res) => {
-        const { username, address, contact, coffee, pasta, rosemilk, brownie, cake,totalAmount } = req.body;
-        const status = ('Booked');
-      
-        console.log(req.body);
-      
+        const { username, email, contact, address, coffee, pasta, rosemilk, brownie, cake, totalAmount } = req.body;
+    
         db.query(
-          'INSERT INTO orders (username, contact, address, coffee, pasta, rosemilk, brownie, cake, totalamount, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-          [username, contact, address, coffee, pasta, rosemilk, brownie, cake, totalAmount,status],
-          (err, result) => {
-            if (err) {
-              console.log(err);
-              res.status(500).send('Internal Server Error');
-            } else {
-              res.status(200).send('Order placed successfully!');
-              console.log(result)
-              const orderId = result.id;
+            'INSERT INTO orders (username, email, contact, address, coffee, pasta, rosemilk, brownie, cake, totalamount) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [username, email, contact, address, coffee, pasta, rosemilk, brownie, cake, totalAmount],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).send('Internal Server Error');
+                } else {
+                    // Collect product details into a formatted string
+                    const productDetails = `
+                        Coffee: ${coffee} cups
+                        Pasta: ${pasta} plates
+                        Rose Milk: ${rosemilk} glasses
+                        Brownie: ${brownie} pieces
+                        Cake: ${cake} pieces
+                    `;
+    
+                    const transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                            user: 'gokul8506@gmail.com',
+                            pass: 'sdxw iyis bjhb gckg'
+                        }
+                    });
+    
+                    const mailOptions = {
+                        from: 'gokul8506@gmail.com',
+                        to: email,
+                        subject: 'Order Confirmation',
+                        text: `Your order has been successfully placed!\n\nTotal amount: $${totalAmount}\n\nOrdered Items:\n${productDetails}`
+                    };
+    
+                    transporter.sendMail(mailOptions, (error, info) => {
+                        if (error) {
+                            console.error('Error sending email:', error);
+                        } else {
+                            console.log('Email sent:', info.response);
+                        }
+                    });
+    
+                    res.status(200).send('Order placed successfully!');
+                    console.log(result);
+                    const orderId = result.insertId;  // Get the inserted order ID
+                }
             }
-          }
         );
-      });
+    });
+
+    
 
     app.get('/track/:id', (req, res) => {
         const orderId = req.params.id;
