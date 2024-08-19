@@ -19,5 +19,7 @@
     "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0",
     "socket.io": "^4.7.4"
-  }
+  },
+  "repository": "https://github.com/Gokulkannan3/fback",
+  "author": "<gokul8506@gmail.com>"
 }
