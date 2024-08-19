@@ -166,7 +166,7 @@ app.use(
                         service: 'gmail',
                         auth: {
                             user: 'gokul8506@gmail.com',
-                            pass: 'xqrf tddd xoom rxtc'
+                            pass: 'tdmc ggvc itfc oagr'
                         }
                     });
     
